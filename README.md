@@ -13,6 +13,8 @@
 # Заклоньте проект
 git clone https://github.com/Falconconsume/volunteer-platform-frontend.git
 
+npm i yarn -g
+
 # Встановлення залежностей
 yarn install
 
