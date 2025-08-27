@@ -1,0 +1,11 @@
+reviewers:
+  - Falconconsume
+
+numberOfReviewers: 1
+
+skipDraft: true
+
+reviewGroups:
+  - Falconconsume
+
+deleteOldAssignees: false
