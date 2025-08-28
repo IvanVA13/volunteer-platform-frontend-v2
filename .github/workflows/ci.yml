@@ -1,20 +1,20 @@
 name: FE CI
 on:
-  pull_request:
-  push:
-    branches: [dev, main]
+    pull_request:
+    push:
+        branches: [dev, main]
 
 jobs:
-  ci:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4                 # 1) стягує код PR/гілки
-      - uses: actions/setup-node@v4               # 2) ставить Node.js
-        with:
-          node-version: 20
-          cache: 'yarn'                           #    кеш інсталяцій для швидкості
-      - run: yarn install --frozen-lockfile       # 3) встановлює залежності 1-в-1 із lockfile
-      - run: yarn lint                            # 4) перевіряє стиль/помилки ESLint
-      - run: yarn type-check                      # 5) перевіряє типи TypeScript (без емісії)
-      - run: yarn test --if-present || echo "no tests yet"  # 6) тести (якщо є)
-      - run: yarn build                           # 7) збирає проєкт (гарантія, що компілюється)
+    ci:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4 # 1) стягує код PR/гілки
+            - uses: actions/setup-node@v4 # 2) ставить Node.js
+              with:
+                  node-version: 20
+                  cache: 'yarn' #    кеш інсталяцій для швидкості
+            - run: yarn install --frozen-lockfile # 3) встановлює залежності 1-в-1 із lockfile
+            - run: yarn lint # 4) перевіряє стиль/помилки ESLint
+            - run: yarn type-check # 5) перевіряє типи TypeScript (без емісії)
+            - run: yarn test --if-present || echo "no tests yet" # 6) тести (якщо є)
+            - run: yarn build # 7) збирає проєкт (гарантія, що компілюється)

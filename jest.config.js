@@ -5,7 +5,8 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/src/test/setupTests.ts'],
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '\\.(svg|png|jpg|jpeg|gif|webp|avif)$': '<rootDir>/test/__mocks__/fileMock.js',
+    '\\.(svg|png|jpg|jpeg|gif|webp|avif)$':
+      '<rootDir>/test/__mocks__/fileMock.js',
   },
   transform: {
     '^.+\\.(ts|tsx)$': [
