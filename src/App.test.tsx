@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
+import '@testing-library/jest-dom'
 import App from './App'
 
-test('renders app root', () => {
-  render(<App />)
-  expect(screen.getByText(/vite \+ react/i)).toBeInTheDocument()
+test('renders Vite + React text', () => {
+  const { getByText } = render(<App />)
+  expect(getByText(/vite \+ react/i)).toBeInTheDocument()
 })
