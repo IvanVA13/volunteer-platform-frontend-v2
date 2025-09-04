@@ -1,29 +1,26 @@
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import {
-    Heart,
-    Home,
-    Users,
-    GraduationCap,
-    Stethoscope,
-    Smile,
-} from 'lucide-react'
 import { routes } from '@/constants/routes.constants'
+import { useState } from 'react'
+import { Menu, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Card, CardContent } from '@/components/ui/card'
 
-export default function HomePage() {
+function Header() {
+    const [isOpen, setIsOpen] = useState(false)
+    const closeMenu = () => setIsOpen(false)
+
     return (
-        <div className="min-h-screen flex flex-col max-w-[1320px] mr-auto ml-auto">
-            {/* Header */}
-            <header className="w-full flex justify-between items-center  border-b bg-white sticky top-0 z-50 ">
-                <div className="bg-yellow-200 font-bold text-5xl text-black-600 rounded-3xl pl-4 pr-4 pt-1 pb-2 ">
+        <header className="w-full border-b bg-white sticky top-0 z-50 px-4 sm:px-6 lg:px-8 py-3">
+            <div className="flex justify-between items-center">
+                {/* Logo */}
+                <div className="bg-yellow-200 font-bold text-2xl sm:text-3xl md:text-5xl text-black rounded-2xl px-3 py-1">
                     Razom
                 </div>
-                <nav className=" md:flex gap-6 text-gray-700 ">
-                    <Link
-                        to={routes.about}
-                        className="font-normal hover:text-black"
-                    >
+
+                {/* Desktop nav */}
+                <nav className="hidden md:flex gap-6 text-gray-700 text-sm md:text-base">
+                    <Link to={routes.about} className="hover:text-black">
                         Про нас
                     </Link>
                     <Link to={routes.partners} className="hover:text-black">
@@ -36,106 +33,213 @@ export default function HomePage() {
                         Зворотній зв’язок
                     </Link>
                 </nav>
-                <Button
-                    asChild
-                    className="bg-white-400 hover:bg-yellow-300 rounded-2xl px-6 text-black border-solid border-black border-2"
+
+                {/* Desktop button */}
+                <div className="hidden md:block">
+                    <Button
+                        asChild
+                        className="bg-white hover:bg-yellow-300 rounded-2xl px-4 sm:px-6 text-black border border-black text-sm sm:text-base"
+                    >
+                        <Link to={routes.createRequest}>Допомогти</Link>
+                    </Button>
+                </div>
+
+                {/* Mobile burger */}
+                <button
+                    className="md:hidden p-2 text-black"
+                    onClick={() => setIsOpen(!isOpen)}
                 >
-                    <Link to={routes.createRequest}>Допомогти</Link>
-                </Button>
-            </header>
+                    {isOpen ? <X size={28} /> : <Menu size={28} />}
+                </button>
+            </div>
+
+            {/* Backdrop */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
+                        onClick={closeMenu}
+                    />
+                )}
+            </AnimatePresence>
+
+            {/* Mobile menu */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        className="absolute left-0 right-0 top-full md:hidden z-50 px-4"
+                    >
+                        <div className="flex flex-col gap-4 mt-4 bg-white rounded-2xl shadow-lg p-4 text-gray-700">
+                            <Link to={routes.about} onClick={closeMenu}>
+                                Про нас
+                            </Link>
+                            <Link to={routes.partners} onClick={closeMenu}>
+                                Партнери
+                            </Link>
+                            <Link to={routes.supportUs} onClick={closeMenu}>
+                                Підтримати нас
+                            </Link>
+                            <Link to={routes.contacts} onClick={closeMenu}>
+                                Зворотній зв’язок
+                            </Link>
+                            <Button
+                                asChild
+                                className="bg-yellow-300 hover:bg-black hover:text-white rounded-2xl px-4 sm:px-6 text-black border border-black text-sm sm:text-base"
+                            >
+                                <Link
+                                    to={routes.createRequest}
+                                    onClick={closeMenu}
+                                >
+                                    Допомогти
+                                </Link>
+                            </Button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </header>
+    )
+}
+
+export default function HomePage() {
+    return (
+        <div>
+            <Header />
 
             {/* Hero */}
-            <section className="grid md:grid-cols-3 gap-8 items-center mr-auto ml-auto max-w-330 max-h-[500px]">
-                {/* Текст — 1/3 */}
-                <div className="md:col-span-1">
-                    <h1 className="text-4xl font-bold mb-12.5">
+            <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 items-center px-4 sm:px-6 lg:px-8 py-12">
+                {/* Text */}
+                <div className="text-center sm:text-left md:col-span-1">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
                         Ваша допомога робить світ кращим
                     </h1>
-                    <p className="text-gray-600 mb-12.5">
-                        Разом – команда, що об’єднує волонтерів, благодійні
+                    <p className="text-gray-600 mb-6 text-sm sm:text-base">
+                        Razom – команда, що об’єднує волонтерів, благодійні
                         організації та всіх небайдужих задля допомоги й розвитку
                         суспільства.
                     </p>
-                    <div className="flex gap-4">
+                    <img
+                        src="/img/home-page/avatars.png"
+                        alt="helping hands"
+                        className="rounded-2xl mb-2 object-cover mx-auto sm:mx-0 max-w-[200px] sm:max-w-[250px]"
+                    />
+                    <p className="text-gray-600 mb-6 text-sm sm:text-base">
+                        100 000+ людей вже допомогли
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
                         <Button
                             asChild
-                            className="bg-black text-white rounded-lg px-6 hover:bg-yellow-300 hover:text-black"
+                            className="bg-black text-white rounded-lg px-4 sm:px-6 hover:bg-yellow-300 hover:text-black"
                         >
                             <Link to={routes.requests}>Потрібна допомога</Link>
                         </Button>
                         <Button
                             asChild
                             variant="outline"
-                            className="rounded-lg px-6 bg-yellow-300 hover:bg-black hover:text-white"
+                            className="rounded-lg px-4 sm:px-6 bg-yellow-300 hover:bg-black hover:text-white"
                         >
                             <Link to={routes.register}>Хочу допомогти</Link>
                         </Button>
                     </div>
                 </div>
 
-                {/* Фото — 2/3 */}
-                <div className="md:col-span-2 max-h-[500px]">
+                {/* Photo */}
+                <div className="md:col-span-2">
                     <img
                         src="/img/home-page/hero-img.png"
                         alt="volunteers"
-                        className="rounded-2xl shadow-md w-full object-cover"
+                        className="rounded-2xl shadow-md w-full h-auto object-cover max-h-[500px]"
                     />
                 </div>
             </section>
 
             {/* Stats */}
-            <section className="grid grid-cols-2 md:grid-cols-4 gap-6 px-8 py-12 bg-gray-50 text-center">
-                <div>
-                    <div className="text-2xl font-bold">1 000 000+</div>
-                    <p className="text-gray-600">Людей отримали допомогу</p>
-                </div>
-                <div>
-                    <div className="text-2xl font-bold">500+</div>
-                    <p className="text-gray-600">Волонтерських ініціатив</p>
-                </div>
-                <div>
-                    <div className="text-2xl font-bold">200+</div>
-                    <p className="text-gray-600">Партнерських організацій</p>
-                </div>
-                <div>
-                    <div className="text-2xl font-bold">100%</div>
-                    <p className="text-gray-600">Прозорість і звіти</p>
-                </div>
+            <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-4 sm:px-6 lg:px-8 py-12 bg-gray-50 text-center">
+                {['users', 'heart-handshake', 'globe', 'clipboard-list'].map(
+                    (icon, i) => (
+                        <div
+                            key={i}
+                            className="flex flex-row items-center gap-5 justify-center sm:justify-start"
+                        >
+                            <svg className="w-10 h-10">
+                                <use
+                                    href={`/img/home-page/icons-sprite.svg#icon-${icon}`}
+                                />
+                            </svg>
+                            <div className="text-left">
+                                <p className="font-semibold text-lg">
+                                    1 000 000+
+                                </p>
+                                <p className="text-gray-600 text-sm">
+                                    Людей отримали допомогу
+                                </p>
+                            </div>
+                        </div>
+                    )
+                )}
             </section>
 
             {/* About */}
-            <section className="grid md:grid-cols-2 gap-8 px-8 py-16 items-center">
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 sm:px-6 lg:px-8 py-16 items-center">
                 <img
                     src="/img/home-page/who-we.png"
                     alt="helping hands"
-                    className="rounded-2xl shadow-md max-h-95 object-cover"
+                    className="rounded-2xl shadow-md w-full h-auto object-cover"
                 />
                 <div>
-                    <h2 className="text-3xl font-bold mb-4">Хто ми</h2>
-                    <ul className="space-y-3 text-gray-700">
-                        <li>
-                            ✅ Ми – волонтерська спільнота, яка об’єднує людей
-                            заради добра.
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+                        Хто ми
+                    </h2>
+                    <ul className="space-y-3 text-gray-700 text-sm sm:text-base">
+                        <li className="flex items-start gap-3">
+                            <svg className="w-6 h-6 mt-1">
+                                <use href="/img/home-page/icons-sprite.svg#icon-Ellipse-1" />
+                            </svg>
+                            Ми — благодійна організація, яка щодня працює, щоб
+                            допомагати тим, хто цього потребує
                         </li>
-                        <li>
-                            ✅ Надаємо допомогу постраждалим та тим, хто її
-                            потребує.
+                        <li className="flex items-start gap-3">
+                            <svg className="w-6 h-6 mt-1">
+                                <use href="/img/home-page/icons-sprite.svg#icon-Ellipse-1" />
+                            </svg>
+                            Наша мета — робити життя людей легшим, підтримувати
+                            їх у складних ситуаціях та надихати на нові
+                            можливості
                         </li>
-                        <li>
-                            ✅ Підтримуємо освіту, медицину та розвиток громад.
+                        <li className="flex items-start gap-3">
+                            <svg className="w-6 h-6 mt-1">
+                                <use href="/img/home-page/icons-sprite.svg#icon-Ellipse-1" />
+                            </svg>
+                            Ми віримо, що кожна людина заслуговує на турботу,
+                            увагу та шанс на щасливе життя
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <svg className="w-6 h-6 mt-1">
+                                <use href="/img/home-page/icons-sprite.svg#icon-Ellipse-1" />
+                            </svg>
+                            Ми прагнемо створювати спільноту людей, які готові
+                            допомагати і змінювати світ на краще
                         </li>
                     </ul>
-                    <div className="flex gap-4 mt-6">
+                    <div className="flex flex-col sm:flex-row gap-4 mt-6">
                         <Button
                             asChild
-                            className="bg-black text-white rounded-2xl px-6"
+                            className="bg-black text-white rounded-lg px-4 sm:px-6 hover:bg-yellow-300 hover:text-black"
                         >
                             <Link to={routes.about}>Дізнатись більше</Link>
                         </Button>
                         <Button
                             asChild
                             variant="outline"
-                            className="rounded-2xl px-6"
+                            className="bg-white hover:bg-yellow-300 rounded-2xl px-4 sm:px-6 text-black border border-black"
                         >
                             <Link to={routes.register}>Приєднатись</Link>
                         </Button>
@@ -144,96 +248,67 @@ export default function HomePage() {
             </section>
 
             {/* Help Directions */}
-            <section className="px-8 py-16 bg-gray-50">
-                <div className="flex justify-between items-center mb-10">
-                    <h2 className="text-3xl font-bold">
+            <section className="px-4 sm:px-6 lg:px-8 py-16 bg-gray-50">
+                <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">
                         Напрямки нашої допомоги
                     </h2>
                     <Button
                         asChild
-                        className="bg-yellow-400 hover:bg-yellow-500 rounded-2xl px-6"
+                        className="bg-yellow-300 text-black hover:bg-black hover:text-white rounded-2xl px-4 sm:px-6"
                     >
-                        <Link to={routes.requests}>Усі проєкти</Link>
+                        <Link to={routes.requests}>Потрібна допомога</Link>
                     </Button>
                 </div>
-                <div className="grid md:grid-cols-3 gap-6">
-                    <Card className="rounded-2xl shadow-sm">
-                        <CardContent className="p-6 text-center">
-                            <Home className="mx-auto h-10 w-10 text-yellow-500 mb-4" />
-                            <h3 className="font-semibold text-lg mb-2">
-                                Дім та укриття
-                            </h3>
-                            <p className="text-gray-600">
-                                Забезпечуємо житлом і захистом тих, хто його
-                                потребує.
-                            </p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="rounded-2xl shadow-sm">
-                        <CardContent className="p-6 text-center">
-                            <Heart className="mx-auto h-10 w-10 text-yellow-500 mb-4" />
-                            <h3 className="font-semibold text-lg mb-2">
-                                Любов та підтримка
-                            </h3>
-                            <p className="text-gray-600">
-                                Ми завжди поряд із тими, хто переживає складні
-                                часи.
-                            </p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="rounded-2xl shadow-sm">
-                        <CardContent className="p-6 text-center">
-                            <Smile className="mx-auto h-10 w-10 text-yellow-500 mb-4" />
-                            <h3 className="font-semibold text-lg mb-2">
-                                Тепло та радість
-                            </h3>
-                            <p className="text-gray-600">
-                                Даруємо надію та світлі моменти тим, хто цього
-                                потребує.
-                            </p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="rounded-2xl shadow-sm">
-                        <CardContent className="p-6 text-center">
-                            <Users className="mx-auto h-10 w-10 text-yellow-500 mb-4" />
-                            <h3 className="font-semibold text-lg mb-2">
-                                Ми допоможемо разом
-                            </h3>
-                            <p className="text-gray-600">
-                                Об’єднуємо зусилля людей та організацій для
-                                більшого впливу.
-                            </p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="rounded-2xl shadow-sm">
-                        <CardContent className="p-6 text-center">
-                            <GraduationCap className="mx-auto h-10 w-10 text-yellow-500 mb-4" />
-                            <h3 className="font-semibold text-lg mb-2">
-                                Освіта та розвиток
-                            </h3>
-                            <p className="text-gray-600">
-                                Інвестуємо в майбутнє через навчання та
-                                розвиток.
-                            </p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="rounded-2xl shadow-sm">
-                        <CardContent className="p-6 text-center">
-                            <Stethoscope className="mx-auto h-10 w-10 text-yellow-500 mb-4" />
-                            <h3 className="font-semibold text-lg mb-2">
-                                Медична допомога
-                            </h3>
-                            <p className="text-gray-600">
-                                Забезпечуємо доступ до якісної медицини та
-                                підтримки.
-                            </p>
-                        </CardContent>
-                    </Card>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {[
+                        {
+                            icon: 'home',
+                            title: 'Дім та укриття',
+                            text: 'Допомагаємо забезпечити безпечне та комфортне житло для тих, хто його потребує',
+                        },
+                        {
+                            icon: 'heart',
+                            title: 'Любов та підтримка',
+                            text: 'Підтримуємо людей у складні моменти, надаючи турботу та увагу',
+                        },
+                        {
+                            icon: 'food',
+                            title: 'Їжа та продукти',
+                            text: 'Забезпечуємо якісні продукти харчування для тих, хто цього потребує',
+                        },
+                        {
+                            icon: 'nature',
+                            title: 'Ми допомагаємо довкіллю',
+                            text: 'Підтримуємо екологічні проєкти спрямовані на збереження природи та чистоти довкілля',
+                        },
+                        {
+                            icon: 'education',
+                            title: 'Освіта та розвиток',
+                            text: 'Сприяємо доступу до якісної освіти для всіх людей, відкриваючи можливості для розвитку',
+                        },
+                        {
+                            icon: 'medical',
+                            title: 'Медична допомога',
+                            text: 'Підтримуємо здоров’я людей, забезпечуючи необхідну медичну допомогу',
+                        },
+                    ].map((item, i) => (
+                        <Card key={i} className="rounded-2xl shadow-sm">
+                            <CardContent className="p-4 sm:p-6 flex flex-col items-center text-center">
+                                <svg className="w-20 sm:w-24 h-20 sm:h-24 mb-3">
+                                    <use
+                                        href={`/img/home-page/icons-sprite.svg#icon-${item.icon}`}
+                                    />
+                                </svg>
+                                <h3 className="font-semibold text-lg mb-2">
+                                    {item.title}
+                                </h3>
+                                <p className="text-gray-700 text-sm sm:text-base">
+                                    {item.text}
+                                </p>
+                            </CardContent>
+                        </Card>
+                    ))}
                 </div>
             </section>
         </div>
