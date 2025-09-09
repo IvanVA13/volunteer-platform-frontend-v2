@@ -43,10 +43,10 @@ export const router = createBrowserRouter([
             {
                 path: routes.requests,
                 element: (
-                    // <ProtectedRoute>
-                    //     <RequestsLayout />
-                    // </ProtectedRoute>
-                    <RequestsLayout />
+                    <ProtectedRoute>
+                        <RequestsLayout />
+                    </ProtectedRoute>
+                    // <RequestsLayout />
                 ),
                 children: [
                     { index: true, element: <RequestsPage /> },

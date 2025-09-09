@@ -1,16 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import counterReducer from '../features/counter/counterSlice'
-import { postsApi } from '../services/postsApi'
+import { apiSlice } from '../services/api'
 
 export const store = configureStore({
     reducer: {
         counter: counterReducer,
-        [postsApi.reducerPath]: postsApi.reducer,
+        [apiSlice.reducerPath]: apiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(postsApi.middleware),
-    devTools: import.meta.env.DEV, // Redux DevTools у development
+        getDefaultMiddleware().concat(apiSlice.middleware),
+    devTools: import.meta.env.DEV,
 })
 
 export type RootState = ReturnType<typeof store.getState>

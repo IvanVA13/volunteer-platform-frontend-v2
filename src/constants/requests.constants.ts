@@ -1,7 +1,7 @@
 import type {
     Category,
     CategoryColors,
-    Request,
+    RequestTable,
     Status,
 } from '@/types/requests.types'
 
@@ -51,7 +51,7 @@ export const categories: Category[] = [
     },
 ]
 
-export const data: Request[] = [
+export const data: RequestTable[] = [
     {
         id: '1111',
         city: 'Київ',

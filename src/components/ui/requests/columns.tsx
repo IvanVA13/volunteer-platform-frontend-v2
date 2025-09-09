@@ -5,7 +5,7 @@ import {
     type Row,
     createColumnHelper,
 } from '@tanstack/react-table'
-import { type Request } from '@/types/requests.types'
+import { type RequestTable } from '@/types/requests.types'
 import { routes } from '@/constants/routes.constants'
 import {
     statusTitleMap,
@@ -23,8 +23,8 @@ declare module '@tanstack/react-table' {
     }
 }
 
-const dateRangeFilter: FilterFn<Request> = (
-    row: Row<Request>,
+const dateRangeFilter: FilterFn<RequestTable> = (
+    row: Row<RequestTable>,
     columnId: string,
     value: [Date | null, Date | null]
 ) => {
@@ -46,7 +46,7 @@ const dateRangeFilter: FilterFn<Request> = (
     return true
 }
 
-const columnHelper = createColumnHelper<Request>()
+const columnHelper = createColumnHelper<RequestTable>()
 
 export const columns = [
     columnHelper.accessor('userName', {
