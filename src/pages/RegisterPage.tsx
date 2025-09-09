@@ -21,7 +21,7 @@ export default function RegisterPage() {
                         </label>
                         <div className="">
                             <input
-                                className="font-family border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
+                                className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
                                 placeholder="Повне ім'я"
                                 id="userName"
                                 type="text"
@@ -37,7 +37,7 @@ export default function RegisterPage() {
                         </label>
                         <div className="">
                             <input
-                                className="font-family border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
+                                className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
                                 id="tel"
                                 type="tel"
                                 placeholder="+380"
@@ -53,7 +53,7 @@ export default function RegisterPage() {
                         </label>
                         <div className="">
                             <input
-                                className="font-family border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
+                                className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
                                 placeholder="Ваше місто"
                                 id="city"
                                 type="text"
@@ -70,7 +70,7 @@ export default function RegisterPage() {
                         </label>
                         <div className="">
                             <input
-                                className="font-family border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
+                                className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
                                 id="email"
                                 type="email"
                                 name="email"
@@ -87,7 +87,7 @@ export default function RegisterPage() {
                         </label>
                         <div className="">
                             <input
-                                className="font-family border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[20px] md:text-[16px] md:mb-[20px]"
+                                className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[20px] md:text-[16px] md:mb-[20px]"
                                 id="password"
                                 type="password"
                                 name="password"
@@ -111,7 +111,7 @@ export default function RegisterPage() {
                             </label>
                         </div>
                         <button
-                            className="font-family rounded-md w-[100%] font-medium text-[14px] leading-[171%] text-[#fafafa] mb-[30px] h-[50px] flex justify-center items-center bg-black"
+                            className="font-family hover:bg-[#262626] focus:bg-[#262626] rounded-md w-[100%] font-medium text-[14px] leading-[171%] text-[#fafafa] mb-[30px] h-[50px] flex justify-center items-center bg-black"
                             type="submit"
                         >
                             Створити аккаунт

@@ -21,7 +21,7 @@ function Login() {
                         <input
                             type="email"
                             placeholder="Введіть email"
-                            className="font-family border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
+                            className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
                         />
                         <label
                             htmlFor="password"
@@ -32,7 +32,7 @@ function Login() {
                         <input
                             type="password"
                             placeholder="Введіть пароль"
-                            className="font-family border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
+                            className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
                         />
 
                         <div className="flex items-center mb-[50px]">
@@ -53,7 +53,7 @@ function Login() {
 
                         <button
                             type="submit"
-                            className="font-family rounded-md w-[100%] font-medium text-[14px] leading-[171%] text-[#fafafa] mb-[30px] h-[50px] flex justify-center items-center bg-black"
+                            className="font-family hover:bg-[#262626] focus:bg-[#262626] rounded-md w-[100%] font-medium text-[14px] leading-[171%] text-[#fafafa] mb-[30px] h-[50px] flex justify-center items-center bg-black"
                         >
                             Увійти
                         </button>

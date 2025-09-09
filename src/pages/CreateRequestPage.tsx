@@ -28,7 +28,7 @@ export default function SupportUsPage() {
                     </label>
                     <div className="">
                         <input
-                            className="font-family border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
+                            className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
                             placeholder="Богдана"
                             id="userName"
                             type="text"
@@ -45,7 +45,7 @@ export default function SupportUsPage() {
                     <Select>
                         <SelectTrigger
                             id="region"
-                            className="flex items-center h-[55px] font-family border-solid border border-gray-400 pt-[27px] pb-[27px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
+                            className="flex  hover:border-[#000] focus:border-[#000] items-center h-[55px] font-family border-solid border border-gray-400 pt-[27px] pb-[27px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
                         >
                             <SelectValue placeholder="Київська область" />
                         </SelectTrigger>
@@ -128,7 +128,7 @@ export default function SupportUsPage() {
                     </label>
                     <div className="">
                         <input
-                            className="font-family border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
+                            className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
                             placeholder="м.Київ, Печерский район"
                             id="city"
                             type="text"
@@ -145,7 +145,7 @@ export default function SupportUsPage() {
                     <Select>
                         <SelectTrigger
                             id="urgency"
-                            className="flex items-center h-[55px] font-family border-solid border border-gray-400 pt-[27px] pb-[27px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
+                            className="flex hover:border-[#000] focus:border-[#000] items-center h-[55px] font-family border-solid border border-gray-400 pt-[27px] pb-[27px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
                         >
                             <SelectValue placeholder="Якнайшвидше" />
                         </SelectTrigger>
@@ -168,7 +168,7 @@ export default function SupportUsPage() {
                     <Select>
                         <SelectTrigger
                             id="help"
-                            className="flex items-center h-[55px] font-family border-solid border border-gray-400 pt-[27px] pb-[27px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
+                            className="flex hover:border-[#000] focus:border-[#000] items-center h-[55px] font-family border-solid border border-gray-400 pt-[27px] pb-[27px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
                         >
                             <SelectValue placeholder="Психологічна підтримка" />
                         </SelectTrigger>
@@ -204,7 +204,7 @@ export default function SupportUsPage() {
                     <Textarea
                         id="situation"
                         placeholder="Опишіть вашу ситуацію тут…"
-                        className="font-family h-[170px] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[20px] md:text-[16px] md:mb-[20px] md:mb-[30px]"
+                        className="font-family hover:border-[#000] focus:border-[#000] h-[170px] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[20px] md:text-[16px] md:mb-[20px] md:mb-[30px]"
                     />
                     <Button
                         type="submit"
@@ -212,7 +212,7 @@ export default function SupportUsPage() {
                     >
                         Надіслати запит
                     </Button>
-                    <p className="font-family font-normal text-[16px] leading-[150%] text-black mb-[20px] md:mb-[30px] ">
+                    <p className="font-family hover:bg-[#262626] focus:bg-[#262626] font-normal text-[16px] leading-[150%] text-black mb-[20px] md:mb-[30px] ">
                         Іноді через велику кількість заявок відповідь може
                         зайняти трохи часу, але ми завжди прагнемо зробити все
                         якісно
