@@ -1,19 +1,14 @@
 import { NavLink } from 'react-router'
-import { routes } from '../../constants/routes.constants'
+import { navigation } from '@/constants/nav.constants'
 
 export default function Navigation() {
     return (
-        <nav
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                columnGap: '20px',
-            }}
-        >
-            <NavLink to={routes.about}>Про нас</NavLink>
-            <NavLink to={routes.partners}>Партнери</NavLink>
-            <NavLink to={routes.supportUs}>Підтримати нас</NavLink>
-            <NavLink to={routes.contacts}>Зв'язатись з нами</NavLink>
+        <nav className="flex flex-col md:flex-row gap-y-4 gap-x-3 xl:gap-x-10 text-gray-700 text-sm lg:text-base">
+            {navigation.map(({ title, route }, id) => (
+                <NavLink key={id} className="py-1" to={route}>
+                    {title}
+                </NavLink>
+            ))}
         </nav>
     )
 }
