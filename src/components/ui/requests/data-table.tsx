@@ -52,10 +52,7 @@ import { useMediaQuery } from '@/hooks/use-media-query'
 import { Link } from 'react-router-dom'
 import { routes } from '@/constants/routes.constants'
 
-export function DataTable<TData, TValue>({
-    columns,
-    data,
-}: DataTableProps<TData, TValue>) {
+export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
     const [sorting, setSorting] = useState<SortingState>([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [range, setRange] = useState<DateRange | undefined>({
