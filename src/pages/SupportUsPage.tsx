@@ -1,4 +1,8 @@
+import { Link } from 'react-router-dom'
+import { Coins, Users } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
+import { routes } from '@/constants/routes.constants'
 
 export default function SupportUsPage() {
     return (
@@ -7,20 +11,14 @@ export default function SupportUsPage() {
                 <h2 className="font-family font-extrabold text-[24px] leading-[133%] tracking-[-0.01em] text-center text-black mb-[16px] md:text-[48px] md:leading-[100%] ">
                     Хочете допомогти?
                 </h2>
-                <p className="font-family mb-[20px] font-normal text-[14px] leading-[171%] text-center text-black md: text-[16px] md:leading-[150%] md:mb-[70px]">
+                <p className="font-family mb-[20px] font-normal text-[14px] leading-[171%] text-center text-black md:text-[16px] md:leading-[150%] md:mb-[70px]">
                     Дякуємо, що вирішили підтримати нашу справу! Ваша допомога
                     робить світ кращим, і кожен внесок має значення
                 </p>
                 <ul className="xl:flex xl:gap-[20px] xl:mb-[70px]">
                     <li className="xl:mb-[0] flex border-2 border-[#e7e5e4] rounded-[12px] p-[20px_16px] shadow-[0_4px_6px_rgba(0,0,0,0.09)] mb-[16px] md:p-[45px_20px]">
                         <div className="w-[120px] h-[120px] bg-[#fef08a] rounded-[50%] flex justify-center items-center mr-[16px] flex-shrink-0">
-                            <svg
-                                className="fill-none stroke-black"
-                                width="70px"
-                                height="70px"
-                            >
-                                <use href="./src/img/icons.svg#icon-coins" />
-                            </svg>
+                            <Coins className="size-[70px]" strokeWidth={1} />
                         </div>
                         <div>
                             <p className="font-family mb-[16px] font-semibold text-[18px] leading-[156%] text-black md:text-[24px] md:leading-[133%]">
@@ -34,13 +32,7 @@ export default function SupportUsPage() {
                     </li>
                     <li className=" xl:mb-[0] flex border-2 border-[#e7e5e4] rounded-[12px] p-[20px_16px] shadow-[0_4px_6px_rgba(0,0,0,0.09)] md:p-[45px_20px] mb-[20px] md:mb-[50px]">
                         <div className="w-[120px] h-[120px] bg-[#fef08a] rounded-[50%] flex justify-center items-center mr-[16px] flex-shrink-0">
-                            <svg
-                                className="fill-none stroke-black"
-                                width="70px"
-                                height="70px"
-                            >
-                                <use href="./src/img/icons.svg#icon-users" />
-                            </svg>
+                            <Users className="size-[70px]" strokeWidth={1} />
                         </div>
                         <div>
                             <p className="font-family mb-[16px] font-semibold text-[18px] leading-[156%] text-black md:text-[24px] md:leading-[133%]">
@@ -55,10 +47,11 @@ export default function SupportUsPage() {
                 </ul>
 
                 <Button
+                    asChild
                     type="button"
                     className="font-family rounded-md hover:bg-[#262626] focus:bg-[#262626]  w-[100%] font-medium text-[14px] leading-[171%] text-[#fafafa]  h-[50px] flex justify-center items-center bg-black xl:w-[204px] xl:ml-auto"
                 >
-                    Далі
+                    <Link to={routes.register}>Далі</Link>
                 </Button>
             </div>
         </section>
