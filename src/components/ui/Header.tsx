@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, User, X } from 'lucide-react'
 
 import Navigation from '@/components/ui/Navigation'
 import { Button } from './button'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { routes } from '@/constants/routes.constants'
 import Container from './Container'
 
@@ -43,18 +43,23 @@ export default function Header() {
                         className={`${isOpen ? 'flex' : 'hidden'} md:flex flex-col-reverse md:flex-row md:justify-end md:items-center md:gap-x-4 lg:gap-x-14 w-full`}
                     >
                         <Navigation />
-                        <NavLink
-                            className="md:hidden mb-12 py-3 w-full leading-6 text-center rounded-sm bg-yellow-300"
-                            to={routes.createRequest}
+                        <Button
+                            asChild
+                            className="md:hidden mb-12 md:mb-0 h-auto py-3 px-4 sm:px-6 lg:px-16 text-black hover:text-white text-base rounded-sm bg-yellow-300 hover:bg-black"
                         >
-                            Кабінет
-                        </NavLink>
-                        <NavLink
-                            className="mb-2.5 md:mb-0 p-3 w-full md:w-auto lg:w-48 leading-6 text-center rounded-sm border-1 border-black hover:bg-yellow-300"
-                            to={routes.createRequest}
+                            <Link to={routes.requests}>
+                                <User className="size-5" />
+                                Кабінет
+                            </Link>
+                        </Button>
+                        <Button
+                            asChild
+                            variant="outline"
+                            className="h-auto mb-2.5 md:mb-0 py-3 px-4 sm:px-6 lg:px-16 text-base
+                              hover:bg-yellow-300 rounded-sm border-black"
                         >
-                            Допомогти
-                        </NavLink>
+                            <Link to={routes.createRequest}>Допомогти</Link>
+                        </Button>
                     </div>
                 </div>
             </Container>

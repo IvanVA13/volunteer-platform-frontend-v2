@@ -1,31 +1,44 @@
+import {
+    ClipboardList,
+    Globe,
+    GraduationCap,
+    Heart,
+    HeartHandshake,
+    Home,
+    PlusCircle,
+    TreeDeciduous,
+    Users,
+    Utensils,
+} from 'lucide-react'
+
 export const support = [
     {
-        icon: 'home',
+        icon: Home,
         title: 'Дім та укриття',
         text: 'Допомагаємо забезпечити безпечне та комфортне житло для тих, хто його потребує',
     },
     {
-        icon: 'heart',
+        icon: Heart,
         title: 'Любов та підтримка',
         text: 'Підтримуємо людей у складні моменти, надаючи турботу та увагу',
     },
     {
-        icon: 'food',
+        icon: Utensils,
         title: 'Їжа та продукти',
         text: 'Забезпечуємо якісні продукти харчування для тих, хто цього потребує',
     },
     {
-        icon: 'nature',
+        icon: TreeDeciduous,
         title: 'Ми допомагаємо довкіллю',
         text: 'Підтримуємо екологічні проєкти спрямовані на збереження природи та чистоти довкілля',
     },
     {
-        icon: 'education',
+        icon: GraduationCap,
         title: 'Освіта та розвиток',
         text: 'Сприяємо доступу до якісної освіти для всіх людей, відкриваючи можливості для розвитку',
     },
     {
-        icon: 'medical',
+        icon: PlusCircle,
         title: 'Медична допомога',
         text: 'Підтримуємо здоров’я людей, забезпечуючи необхідну медичну допомогу',
     },
@@ -47,5 +60,28 @@ export const about = [
     {
         description:
             'Ми прагнемо створювати спільноту людей, які готові допомагати і змінювати світ на краще',
+    },
+]
+
+export const achievement = [
+    {
+        icon: Users,
+        title: '1 000 000+',
+        description: 'Людей отримали допомогу',
+    },
+    {
+        icon: HeartHandshake,
+        title: '500 +',
+        description: 'Волонтерських ініціатив',
+    },
+    {
+        icon: Globe,
+        title: '200 +',
+        description: 'Партнерських організацій',
+    },
+    {
+        icon: ClipboardList,
+        title: '100%',
+        description: 'Прозорості у звітах ',
     },
 ]
