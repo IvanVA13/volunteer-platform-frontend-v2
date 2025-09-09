@@ -14,12 +14,12 @@ export default function HomePage() {
     return (
         <main>
             <section className="py-12">
-                <Container className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 items-center">
-                    <div className="flex flex-col gap-y-5 md:gap-[50px] text-center sm:text-left md:col-span-1">
+                <Container className="grid grid-cols-1 xl:grid-cols-12 gap-5 items-center">
+                    <div className="flex flex-col gap-y-5 md:gap-[50px] text-center sm:text-left xl:col-span-5">
                         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">
                             Ваша допомога робить світ кращим
                         </h1>
-                        <p className="font-semibold text-gray-600 text-sm sm:text-base">
+                        <p className="font-semibold text-gray-600 text-sm sm:text-lg">
                             Razom – команда, що об’єднує волонтерів, благодійні
                             організації та всіх небайдужих задля допомоги й
                             розвитку суспільства.
@@ -37,7 +37,7 @@ export default function HomePage() {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
                             <Button
                                 asChild
-                                className="h-auto py-3 px-4 sm:px-6 text-white  hover:text-black bg-black hover:bg-yellow-300 rounded-sm"
+                                className="h-auto py-3 px-4 sm:px-11 text-white hover:text-black bg-black hover:bg-yellow-300 rounded-sm"
                             >
                                 <Link to={routes.requests}>
                                     Потрібна допомога
@@ -46,14 +46,14 @@ export default function HomePage() {
                             <Button
                                 asChild
                                 variant="outline"
-                                className="h-auto py-3 px-4 sm:px-6 hover:text-white
+                                className="h-auto py-3 px-4 sm:px-11 hover:text-white
                              bg-yellow-300 hover:bg-black rounded-sm"
                             >
                                 <Link to={routes.register}>Хочу допомогти</Link>
                             </Button>
                         </div>
                     </div>
-                    <div className="md:col-span-2">
+                    <div className="xl:col-span-7">
                         <img
                             src={hero}
                             alt="volunteers"
