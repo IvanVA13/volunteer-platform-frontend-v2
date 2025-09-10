@@ -9,6 +9,7 @@ import { inputsData } from '@/constants/register.constants'
 import { routes } from '@/constants/routes.constants'
 import { useRegisterMutation } from '@/services/api'
 import type { ReqCreateUser } from '@/types/users.types'
+import registerImg from '@/assets/images/registr-page.jpg'
 
 export default function RegisterPage() {
     const [registerUser, { isLoading, isError, error }] = useRegisterMutation()
@@ -116,7 +117,7 @@ export default function RegisterPage() {
                 </div>
                 <div>
                     <img
-                        src="./src/img/registr-page.jpg"
+                        src={registerImg}
                         alt="Register page"
                         className="hidden xl:block object-cover"
                     />

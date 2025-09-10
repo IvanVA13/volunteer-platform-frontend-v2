@@ -9,6 +9,7 @@ import { inputsData } from '@/constants/login.constants'
 import { routes } from '@/constants/routes.constants'
 import type { ReqLoginUser } from '@/types/users.types'
 import { useLoginMutation } from '@/services/api'
+import loginImg from '@/assets/images/login-page.jpg'
 
 export default function Login() {
     const [loginUser, { isLoading, isError, error }] = useLoginMutation()
@@ -112,7 +113,7 @@ export default function Login() {
 
                 <div>
                     <img
-                        src="./src/img/login-page.jpg"
+                        src={loginImg}
                         alt="Login page"
                         className="hidden size-full xl:block object-cover"
                     />
