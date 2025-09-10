@@ -14,11 +14,13 @@ import type {
     ResUser,
 } from '@/types/users.types'
 import type {
+    QueryRequest,
     ReqCreateRequest,
-    RequestTable,
     ReqUpdateRequest,
     ReqUpdateRequestStatus,
     ResRequest,
+    ResRequests,
+    TransformedRequestsResponse,
 } from '@/types/requests.types'
 
 function isRefreshResult(data: unknown): data is ResLoginUser {
@@ -32,8 +34,8 @@ function isRefreshResult(data: unknown): data is ResLoginUser {
 
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
-    // baseUrl: import.meta.env.VITE_BASE_URL,
-    baseUrl: 'http://localhost:3000/api/',
+    baseUrl: import.meta.env.VITE_BASE_URL || 'http://localhost:3000/api/',
+
     prepareHeaders: (headers) => {
         const token = localStorage.getItem('access_token')
         if (token) {
@@ -63,15 +65,19 @@ const customFetchBase: BaseQueryFn<
                     extraOptions
                 )
 
-                if (refreshResult.data && isRefreshResult(refreshResult.data)) {
+                if (
+                    refreshResult?.data &&
+                    isRefreshResult(refreshResult?.data)
+                ) {
                     localStorage.setItem(
                         'access_token',
-                        refreshResult.data.access_token
+                        refreshResult?.data?.access_token
                     )
 
                     result = await baseQuery(args, api, extraOptions)
                 } else {
-                    api.dispatch(apiSlice.endpoints.logout.initiate())
+                    localStorage.removeItem('access_token')
+                    console.error('Refresh err')
                 }
             } finally {
                 release()
@@ -109,7 +115,6 @@ export const apiSlice = createApi({
                     localStorage.setItem('access_token', data.access_token)
                 } catch (err) {
                     throw new Error(String(err))
-                    // console.log(err)
                 }
             },
         }),
@@ -141,20 +146,41 @@ export const apiSlice = createApi({
             query: () => 'users/profile',
         }),
 
-        getRequests: builder.query<RequestTable[], void>({
-            query: () => 'requests',
+        getRequests: builder.query<
+            TransformedRequestsResponse,
+            QueryRequest | void,
+            ResRequests
+        >({
+            query: (params) => {
+                if (!params) return 'requests'
 
-            transformResponse: (response: ResRequest[]) => {
-                const transformedData = response.map((request) => {
+                const searchParams = new URLSearchParams(
+                    Object.fromEntries(
+                        Object.entries(params).filter(
+                            ([_, value]) =>
+                                value !== null && value !== undefined
+                        )
+                    ) as Record<string, string>
+                )
+
+                return `requests?${searchParams.toString()}`
+            },
+
+            transformResponse: (
+                response: ResRequests
+            ): TransformedRequestsResponse => {
+                const transformedData = response.data.map((request) => {
                     const { user, ...rest } = request
-
                     return {
-                        userName: user.name,
                         ...rest,
+                        userName: user.name,
                     }
                 })
 
-                return transformedData
+                return {
+                    data: transformedData,
+                    meta: response.meta,
+                }
             },
         }),
         createRequest: builder.mutation<ResRequest, ReqCreateRequest>({
@@ -165,7 +191,7 @@ export const apiSlice = createApi({
             }),
         }),
 
-        getRequestById: builder.query<ResRequest[], number>({
+        getRequestById: builder.query<ResRequest, string>({
             query: (id) => `/requests/${id}`,
         }),
 

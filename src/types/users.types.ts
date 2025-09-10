@@ -1,9 +1,11 @@
+import type { ComponentProps } from 'react'
+
 export type ReqCreateUser = {
     email: string
     name: string
     password: string
     phoneNumber: string
-    role: 'volunteer' | 'user'
+    role: 'VOLUNTEER' | 'USER'
     city: string
 }
 
@@ -22,7 +24,7 @@ export type ResUser = {
     name: string
     phone: string
     city: string
-    role: 'volunteer' | 'user' | 'admin'
+    role: 'VOLUNTEER' | 'USER' | 'ADMIN'
     createdAt: Date
     updatedAt: Date
 }
@@ -32,10 +34,17 @@ export type ReqUpdateUser = {
     name: string
     phoneNumber: string
     city: string
-    role: 'volunteer' | 'user'
+    role: 'VOLUNTEER' | 'USER'
 }
 
 export type ReqUpdateUserArg = {
     id: number
     patch: ResUser
+}
+
+export type UserFormData<Ids> = {
+    id: keyof Ids
+    title: string
+    placeholder: string
+    type: ComponentProps<'input'>['type']
 }

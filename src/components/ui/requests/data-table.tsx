@@ -1,4 +1,5 @@
 'use client'
+import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import {
     CalendarClockIcon,
@@ -6,12 +7,9 @@ import {
     ChevronRight,
     Settings2,
 } from 'lucide-react'
-import type { DateRange } from 'react-day-picker'
 import { uk } from 'date-fns/locale'
 
 import {
-    type ColumnFiltersState,
-    type SortingState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -19,6 +17,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table'
+
 import {
     Table,
     TableBody,
@@ -44,38 +43,44 @@ import {
     AccordionTrigger,
 } from '@/components/ui/accordion'
 import { DOTS, usePagination } from '@/hooks/use-custom-pagination'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import { routes } from '@/constants/routes.constants'
 import { categories, statuses } from '@/constants/requests.constants'
 import type { Category, DataTableProps, Status } from '@/types/requests.types'
 
 import { Button } from '../button'
-import { useMediaQuery } from '@/hooks/use-media-query'
-import { Link } from 'react-router-dom'
-import { routes } from '@/constants/routes.constants'
 
-export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
-    const [sorting, setSorting] = useState<SortingState>([])
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-    const [range, setRange] = useState<DateRange | undefined>({
-        from: new Date(2025, 0, 1),
-        to: new Date(2025, 8, 30),
-    })
+export default function DataTable<TData>({
+    columns,
+    data,
+    pageCount,
+    columnFilters,
+    pagination,
+    sorting,
+    onColumnFiltersChange,
+    onPaginationChange,
+    onSortingChange,
+    dateRange,
+    onDateRangeChange,
+}: DataTableProps<TData>) {
     const [selectedStatuses, setSelectedStatuses] = useState<Status[]>([])
     const [selectedCategories, setSelectedCategories] = useState<Category[]>([])
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 20,
-    })
 
     const table = useReactTable({
         data,
         columns,
-        onSortingChange: setSorting,
-        onPaginationChange: setPagination,
+        pageCount,
+        onSortingChange,
+        onColumnFiltersChange,
+        onPaginationChange,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
-        onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
+
+        manualFiltering: true,
+        manualPagination: true,
+        manualSorting: true,
         state: {
             sorting,
             columnFilters,
@@ -125,12 +130,14 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
     }
 
     useEffect(() => {
-        if (range?.from && range?.to) {
-            table.getColumn('createAt')?.setFilterValue([range.from, range.to])
+        if (dateRange?.from && dateRange?.to) {
+            table
+                .getColumn('createAt')
+                ?.setFilterValue([dateRange.from, dateRange.to])
         } else {
             table.getColumn('createAt')?.setFilterValue(undefined)
         }
-    }, [range, table])
+    }, [dateRange, table])
 
     useEffect(() => {
         const selectedIds = selectedStatuses.map((s) => s.id)
@@ -165,8 +172,8 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
                         <PopoverTrigger asChild>
                             <Button variant="outline">
                                 <span className="hidden lg:inline">
-                                    {range?.from && range?.to
-                                        ? `${range.from.toLocaleDateString('uk-UA')} - ${range.to.toLocaleDateString('uk-UA')}`
+                                    {dateRange?.from && dateRange?.to
+                                        ? `${dateRange.from.toLocaleDateString('uk-UA')} - ${dateRange.to.toLocaleDateString('uk-UA')}`
                                         : new Date().toLocaleDateString(
                                               'uk-UA'
                                           )}
@@ -183,9 +190,9 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
                             <Calendar
                                 locale={uk}
                                 mode="range"
-                                defaultMonth={range?.from}
-                                selected={range}
-                                onSelect={setRange}
+                                defaultMonth={dateRange?.from}
+                                selected={dateRange}
+                                onSelect={onDateRangeChange}
                                 className="rounded-lg border shadow-sm"
                             />
                         </PopoverContent>

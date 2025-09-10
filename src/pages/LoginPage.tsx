@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router-dom'
+import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -6,8 +7,34 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { inputsData } from '@/constants/login.constants'
 import { routes } from '@/constants/routes.constants'
+import type { ReqLoginUser } from '@/types/users.types'
+import { useLoginMutation } from '@/services/api'
 
 export default function Login() {
+    const [loginUser, { isLoading, isError, error }] = useLoginMutation()
+    const navigate = useNavigate()
+    const [formData, setFormData] = useState<ReqLoginUser>({
+        email: '',
+        password: '',
+    })
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        })
+    }
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        try {
+            await loginUser(formData).unwrap()
+            navigate(routes.createRequest)
+        } catch (err) {
+            console.error('Помилка входу:', err)
+        }
+    }
     return (
         <section className="pt-[40px] pb-[40px] md:pt-[80px] md:pb-[80px] xl:pb-[150px]">
             <div className="flex xl:gap-x-[132px] items-center mx-auto px-4 max-w-[450px] md:max-w-[650px] xl:max-w-[1372px]">
@@ -19,10 +46,10 @@ export default function Login() {
                         Якщо ви вже маєте створений аккаунт, заповніть нижче
                         поля для входу
                     </p>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="flex flex-col gap-y-4 md:gap-y-5 mb-[30px]">
                             {inputsData.map(
-                                ({ id, title, placeholder }, index) => (
+                                ({ id, title, placeholder, type }, index) => (
                                     <Label
                                         key={index}
                                         className="flex flex-col items-start gap-y-1.5 font-normal leading-[171%] md:text-[16px]"
@@ -30,9 +57,12 @@ export default function Login() {
                                         {title}
                                         <Input
                                             className="h-auto hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] placeholder:text-stone-400 md:text-[16px]"
-                                            type={id}
+                                            type={type}
                                             name={id}
                                             placeholder={placeholder}
+                                            value={formData[id]}
+                                            onChange={handleChange}
+                                            required
                                         />
                                     </Label>
                                 )
@@ -55,11 +85,17 @@ export default function Login() {
                             </Label>
                         </div>
 
+                        {isError && (
+                            <div className="text-red-600">
+                                {'data' in error && 'Сталася помилка'}
+                            </div>
+                        )}
+
                         <Button
                             type="submit"
                             className="hover:bg-[#262626] focus:bg-[#262626] rounded-md w-[100%] font-medium leading-[171%] text-[#fafafa] mb-[30px] h-[50px] flex justify-center items-center bg-black"
                         >
-                            Увійти
+                            {isLoading ? 'Вхід...' : 'Увійти'}
                         </Button>
                     </form>
 
