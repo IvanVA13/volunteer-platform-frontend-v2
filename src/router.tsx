@@ -12,9 +12,10 @@ import ProfilePage from './pages/ProfilePage'
 import NotFoundPage from './pages/NotFoundPage'
 import ContactsPage from './pages/ContactsPage'
 import RequestPage from './pages/RequestPage'
-import AboutPage from './pages/AboutPage'
+// import AboutPage from './pages/AboutPage'
 import PartnersPage from './pages/PartnersPage'
 import SupportUsPage from './pages/SupportUsPage'
+import HelpPage from './pages/HelpPage'
 
 import RootLayout from './components/layouts/RootLayout'
 import RequestsLayout from './components/layouts/RequestsLayout'
@@ -27,7 +28,7 @@ export const router = createBrowserRouter([
         element: <RootLayout />,
         children: [
             { index: true, element: <HomePage /> },
-            { path: routes.about, element: <AboutPage /> },
+            { path: routes.about, element: <HelpPage /> },
             { path: routes.partners, element: <PartnersPage /> },
             { path: routes.supportUs, element: <SupportUsPage /> },
             { path: routes.contacts, element: <ContactsPage /> },
@@ -43,10 +44,10 @@ export const router = createBrowserRouter([
             {
                 path: routes.requests,
                 element: (
-                    // <ProtectedRoute>
-                    //     <RequestsLayout />
-                    // </ProtectedRoute>
-                    <RequestsLayout />
+                    <ProtectedRoute>
+                        <RequestsLayout />
+                    </ProtectedRoute>
+                    // <RequestsLayout />
                 ),
                 children: [
                     { index: true, element: <RequestsPage /> },

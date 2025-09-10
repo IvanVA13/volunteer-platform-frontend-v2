@@ -5,7 +5,7 @@ import {
     type Row,
     createColumnHelper,
 } from '@tanstack/react-table'
-import { type Request } from '@/types/requests.types'
+import { type RequestTableRow } from '@/types/requests.types'
 import { routes } from '@/constants/routes.constants'
 import {
     statusTitleMap,
@@ -23,8 +23,8 @@ declare module '@tanstack/react-table' {
     }
 }
 
-const dateRangeFilter: FilterFn<Request> = (
-    row: Row<Request>,
+const dateRangeFilter: FilterFn<RequestTableRow> = (
+    row: Row<RequestTableRow>,
     columnId: string,
     value: [Date | null, Date | null]
 ) => {
@@ -46,7 +46,7 @@ const dateRangeFilter: FilterFn<Request> = (
     return true
 }
 
-const columnHelper = createColumnHelper<Request>()
+const columnHelper = createColumnHelper<RequestTableRow>()
 
 export const columns = [
     columnHelper.accessor('userName', {
@@ -57,13 +57,13 @@ export const columns = [
         },
         cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor('createAt', {
+    columnHelper.accessor('createdAt', {
         header: (info) => <DefaultHeader info={info} name="Дата" />,
         meta: {
             displayName: 'Дата',
             mobileVisible: true,
         },
-        cell: (info) => info.getValue().toLocaleDateString('uk-UA'),
+        cell: (info) => info.getValue(),
         filterFn: dateRangeFilter,
     }),
     columnHelper.accessor('title', {
@@ -95,7 +95,8 @@ export const columns = [
                 color: 'text-gray-600',
             }
 
-            const title = categoriesTitleMap.get(categoryId) || categoryId
+            const title =
+                categoriesTitleMap.get(categoryId) || 'Їжа та продукти'
             return (
                 <span
                     className={`rounded-sm inline-flex justify-center p-1 ${colors.bg} ${colors.color}`}
@@ -115,7 +116,7 @@ export const columns = [
         cell: (info) => {
             const statusId = info.getValue()
 
-            return statusTitleMap.get(statusId) || statusId
+            return statusTitleMap.get(statusId) || 'Активна'
         },
         filterFn: 'arrIncludesSome',
     }),

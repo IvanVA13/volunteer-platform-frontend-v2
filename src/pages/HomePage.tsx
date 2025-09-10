@@ -39,7 +39,7 @@ export default function HomePage() {
                                 asChild
                                 className="h-auto py-3 px-4 sm:px-11 text-white hover:text-black bg-black hover:bg-yellow-300 rounded-sm"
                             >
-                                <Link to={routes.requests}>
+                                <Link to={routes.register}>
                                     Потрібна допомога
                                 </Link>
                             </Button>
@@ -49,7 +49,7 @@ export default function HomePage() {
                                 className="h-auto py-3 px-4 sm:px-11 hover:text-white
                              bg-yellow-300 hover:bg-black rounded-sm"
                             >
-                                <Link to={routes.register}>Хочу допомогти</Link>
+                                <Link to={routes.requests}>Хочу допомогти</Link>
                             </Button>
                         </div>
                     </div>

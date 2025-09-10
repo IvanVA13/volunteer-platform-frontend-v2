@@ -1,10 +1,49 @@
+import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+
+import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { inputsData } from '@/constants/register.constants'
+import { routes } from '@/constants/routes.constants'
+import { useRegisterMutation } from '@/services/api'
+import type { ReqCreateUser } from '@/types/users.types'
 
 export default function RegisterPage() {
+    const [registerUser, { isLoading, isError, error }] = useRegisterMutation()
+    const navigate = useNavigate()
+    const [formData, setFormData] = useState<ReqCreateUser>({
+        email: '',
+        name: '',
+        password: '',
+        phoneNumber: '',
+        role: 'USER',
+        city: '',
+    })
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        })
+    }
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        try {
+            await registerUser(formData).unwrap()
+            navigate(routes.createRequest)
+        } catch (err) {
+            console.error('Помилка реєстрації:', err)
+        }
+    }
+
     return (
         <section className="pt-[40px] pb-[40px] md:pt-[80px] md:pb-[80px] xl:pb-[150px]">
-            <div className="pl-[16px] pr-[16px] max-w-[450px] md:max-w-[650px] xl:max-w-[1372px] ml-auto mr-auto flex">
-                <div className="w-full xl:pl-[109px] xl:pr-[132px] xl:pt-[17px] xl:pb-[17px]">
+            <div className="flex xl:gap-x-[132px] items-center mx-auto px-4 max-w-[450px] md:max-w-[650px] xl:max-w-[1372px]">
+                <div className="w-full xl:w-auto">
                     <h2 className="font-family font-extrabold text-[28px] leading-[100%] tracking-[-0.01em] text-black mb-[16px] text-center md:text-[48px] md:mb-[16px]">
                         Створіть аккаунт
                     </h2>
@@ -12,126 +51,76 @@ export default function RegisterPage() {
                         Щоб ми могли вам краще допомогти, нам потрібно трохи
                         дізнатися про вас
                     </p>
-                    <form className="">
-                        <label
-                            htmlFor="userName"
-                            className="font-family block font-normal text-[14px] leading-[171%] mb-[6px] md:text-[16px]"
-                        >
-                            Прізвище та ім'я
-                        </label>
-                        <div className="">
-                            <input
-                                className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
-                                placeholder="Повне ім'я"
-                                id="userName"
-                                type="text"
-                                name="userName"
-                                required
-                            />
-                        </div>
-                        <label
-                            htmlFor="registr-page-title"
-                            className="font-family block font-normal text-[14px] leading-[171%] mb-[6px] md:text-[16px]"
-                        >
-                            Номер телефону
-                        </label>
-                        <div className="">
-                            <input
-                                className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
-                                id="tel"
-                                type="tel"
-                                placeholder="+380"
-                                name="tel"
-                                required
-                            />
-                        </div>
-                        <label
-                            htmlFor="city"
-                            className="font-family block font-normal text-[14px] leading-[171%] mb-[6px] md:text-[16px]"
-                        >
-                            Місто
-                        </label>
-                        <div className="">
-                            <input
-                                className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
-                                placeholder="Ваше місто"
-                                id="city"
-                                type="text"
-                                name="city"
-                                required
-                            />
-                        </div>
-
-                        <label
-                            htmlFor="email"
-                            className="font-family block font-normal text-[14px] leading-[171%] mb-[6px]  md:text-[16px]"
-                        >
-                            Електронна пошта
-                        </label>
-                        <div className="">
-                            <input
-                                className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[16px] md:text-[16px] md:mb-[20px]"
-                                id="email"
-                                type="email"
-                                name="email"
-                                placeholder="Введіть email"
-                                required
-                            />
-                        </div>
-
-                        <label
-                            htmlFor="password"
-                            className="font-family block font-normal text-[14px] leading-[171%] mb-[6px] md:text-[16px]"
-                        >
-                            Пароль
-                        </label>
-                        <div className="">
-                            <input
-                                className="font-family hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] text-[#a8a29e] text-[14px] mb-[20px] md:text-[16px] md:mb-[20px]"
-                                id="password"
-                                type="password"
-                                name="password"
-                                placeholder="Введіть пароль"
-                                required
+                    <form onSubmit={handleSubmit}>
+                        <div className="flex flex-col gap-y-4 md:gap-y-5 mb-[30px]">
+                            {inputsData.map(
+                                ({ id, title, placeholder, type }, index) => (
+                                    <Label
+                                        key={index}
+                                        className="flex flex-col items-start gap-y-1.5 font-normal leading-[171%] md:text-[16px]"
+                                    >
+                                        {title}
+                                        <Input
+                                            className="h-auto hover:border-[#000] focus:border-[#000] border-solid border border-gray-400 pt-[16px] pb-[16px] pl-[12px] pr-[12px] rounded-md w-[100%] font-normal leading-[171%] placeholder:text-stone-400 md:text-[16px]"
+                                            type={type}
+                                            name={id}
+                                            placeholder={placeholder}
+                                            value={formData[id]}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </Label>
+                                )
+                            )}
+                            <Input
+                                type="hidden"
+                                hidden
+                                name="role"
+                                value="USER"
                             />
                         </div>
                         <div className="flex items-center mb-[50px]">
-                            <label
-                                htmlFor="user-privacy"
-                                className="font-family  block font-medium text-[12px] leading-[167%] text-black md:text-[14px]"
-                            >
+                            <Label className="font-family  block font-medium text-[12px] leading-[167%] text-black md:text-[14px]">
                                 <Checkbox className="mr-[8px]" />Я погоджуюсь
                                 на&nbsp;
-                                <a
-                                    href="#"
+                                <NavLink
                                     className="font-family underline text-[#334155]"
+                                    to="#"
                                 >
                                     обробку моїх персональних даних
-                                </a>
-                            </label>
+                                </NavLink>
+                            </Label>
                         </div>
-                        <button
+                        {isError && (
+                            <div className="text-red-600">
+                                {'data' in error && 'Сталася помилка'}
+                            </div>
+                        )}
+                        <Button
                             className="font-family hover:bg-[#262626] focus:bg-[#262626] rounded-md w-[100%] font-medium text-[14px] leading-[171%] text-[#fafafa] mb-[30px] h-[50px] flex justify-center items-center bg-black"
                             type="submit"
+                            disabled={isLoading}
                         >
-                            Створити аккаунт
-                        </button>
+                            {isLoading ? 'Реєстрація...' : 'Створити аккаунт'}
+                        </Button>
                     </form>
                     <span className="font-family text-center block ml-auto font-medium mr-auto leading-[100%] text-[ #525252] text-[14px]">
                         Вже маєте акаунт?&nbsp;
-                        <a
+                        <NavLink
                             className="font-family underline text-[#334155]"
-                            href="#"
+                            to={routes.login}
                         >
                             Увійти
-                        </a>
+                        </NavLink>
                     </span>
                 </div>
-                <img
-                    src="./src/img/registr-page.jpg"
-                    alt="Register page"
-                    className="hidden xl:block object-cover"
-                />
+                <div>
+                    <img
+                        src="./src/img/registr-page.jpg"
+                        alt="Register page"
+                        className="hidden xl:block object-cover"
+                    />
+                </div>
             </div>
         </section>
     )
